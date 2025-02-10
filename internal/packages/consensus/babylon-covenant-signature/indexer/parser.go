@@ -7,6 +7,8 @@ import (
 	"log"
 	"strconv"
 	"time"
+
+	"github.com/cosmostation/cvms/internal/common"
 )
 
 // sample rpc event log
@@ -48,11 +50,19 @@ func ExtractBabylonCovenantSignature(resp []byte) (
 	[]MsgCovenantSignature,
 	error,
 ) {
+
 	result := BlockTxsResponse{}
 	err := json.Unmarshal(resp, &result)
 	if err != nil {
 		return 0, time.Time{}, nil, err
 	}
+
+	blockHeight, err := strconv.ParseInt(result.Block.Header.Height, 10, 64)
+	if err != nil {
+		return 0, time.Time{}, nil, err
+	}
+
+	newMsgCovenantSigs := make([]MsgCovenantSignature, 0)
 
 	for _, tx := range result.Txs {
 		for _, message := range tx.Body.Messages {
@@ -69,34 +79,32 @@ func ExtractBabylonCovenantSignature(resp []byte) (
 
 				covenantSigs, err := ParseDynamicMessage(message, typeValue)
 				if err != nil {
-					return 0, time.Time{}, nil, err
+					if errors.Is(err, common.ErrUnSupportedMessageType) {
+						continue
+					} else {
+						return 0, time.Time{}, nil, err
+					}
 				}
 
-				blockHeight, err := strconv.ParseInt(result.Block.Header.Height, 10, 64)
-				if err != nil {
-					return 0, time.Time{}, nil, err
-				}
-
-				return blockHeight, result.Block.Header.Time, covenantSigs, nil
+				newMsgCovenantSigs = append(newMsgCovenantSigs, covenantSigs)
 			}
 		}
 	}
 
-	return 0, time.Time{}, nil, errors.New("unexpected errors")
+	return blockHeight, result.Block.Header.Time, newMsgCovenantSigs, nil
 }
 
 // parseDynamicMessage dynamically parses the message based on its type.
-func ParseDynamicMessage(message json.RawMessage, typeURL string) ([]MsgCovenantSignature, error) {
+func ParseDynamicMessage(message json.RawMessage, typeURL string) (MsgCovenantSignature, error) {
 	switch typeURL {
 	case BabylonCovenantSignatureMessageType:
 		var msg MsgCovenantSignature
 		if err := json.Unmarshal(message, &msg); err != nil {
 			log.Printf("Failed to parse MsgCovenantSignature: %v", err)
-			return nil, err
+			return MsgCovenantSignature{}, err
 		}
-		covenantSigs := append([]MsgCovenantSignature{}, msg)
-		return covenantSigs, nil
+		return msg, nil
 	default:
-		return []MsgCovenantSignature{}, nil
+		return MsgCovenantSignature{}, fmt.Errorf("%w", common.ErrUnSupportedMessageType)
 	}
 }
