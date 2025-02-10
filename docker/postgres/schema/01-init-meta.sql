@@ -62,3 +62,15 @@ CREATE TABLE
     )
 PARTITION BY
     LIST ("chain_info_id");
+
+CREATE TABLE
+    IF NOT EXISTS "meta"."covenant_committee_info" (
+        "id" BIGINT GENERATED ALWAYS AS IDENTITY,
+        "chain_info_id" INT NOT NULL,
+        "covenant_btc_pk" VARCHAR(64) NOT NULL,
+        CONSTRAINT fk_chain_info_id FOREIGN KEY (chain_info_id) REFERENCES meta.chain_info(id) ON DELETE CASCADE ON UPDATE CASCADE,
+        PRIMARY KEY ("id", "chain_info_id"),
+        CONSTRAINT uniq_covenant_btc_pk_by_chain UNIQUE (chain_info_id, covenant_btc_pk)
+    )
+PARTITION BY
+    LIST ("chain_info_id");

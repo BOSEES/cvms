@@ -14,6 +14,7 @@ var (
 		"voteindexer",
 		"veindexer",
 		"babylon_checkpoint",
+		"babylon_covenant_signature",
 		"finality-provider-indexer",
 		"babylon-btc-lightclient",
 	}

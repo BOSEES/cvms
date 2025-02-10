@@ -8,6 +8,7 @@ type IMetaRepository interface {
 	IIndexPointerRepository
 	IValidatorInfoRepository
 	IFinalityProviderInfoRepository
+	ICovenantCommitteeInfoRepository
 
 	// common sql interface for partition tables
 	CreatePartitionTable(IndexName, chainID string) error
@@ -24,7 +25,7 @@ type IChainInfoRepository interface {
 type IIndexPointerRepository interface {
 	InitializeIndexPointerByChainID(indexTableName, chainID string, startHeight int64) error
 	GetLastIndexPointerByIndexTableName(indexTableName string, chainInfoID int64) (model.IndexPointer, error)
-	CheckIndexpoinerAlreadyInitialized(indexTableName string, chainInfoID int64) (bool, error)
+	CheckIndexPointerAlreadyInitialized(indexTableName string, chainInfoID int64) (bool, error)
 }
 
 // interface for about meta.validator_info table
@@ -41,4 +42,12 @@ type IFinalityProviderInfoRepository interface {
 	GetFinalityProviderInfoListByChainInfoID(chainInfoID int64) (fpInfoList []model.FinalityProviderInfo, err error)
 	InsertFinalityProviderInfoList([]model.FinalityProviderInfo) error
 	GetFinalityProviderInfoListByMonikers(chainInfoID int64, monikers []string) ([]model.FinalityProviderInfo, error)
+}
+
+// interface for about meta.covenant_committee table
+type ICovenantCommitteeInfoRepository interface {
+	CreateCovenantCommitteeInfoPartitionTableByChainID(chainID string) error
+	GetCovenantCommitteeInfoListByChainInfoID(chainInfoID int64) (fpInfoList []model.CovenantCommitteeInfo, err error)
+	InsertCovenantCommitteeInfoList([]model.CovenantCommitteeInfo) error
+	GetCovenantCommitteeInfoListByMonikers(chainInfoID int64, monikers []string) ([]model.CovenantCommitteeInfo, error)
 }

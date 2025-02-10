@@ -6,6 +6,7 @@ import (
 	"github.com/cosmostation/cvms/internal/helper/config"
 	btclcindexer "github.com/cosmostation/cvms/internal/packages/babylon-btc-lightclient/indexer"
 	bcindexer "github.com/cosmostation/cvms/internal/packages/consensus/babylon-checkpoint/indexer"
+	bcsindexer "github.com/cosmostation/cvms/internal/packages/consensus/babylon-covenant-signature/indexer"
 	veindexer "github.com/cosmostation/cvms/internal/packages/consensus/veindexer/indexer"
 	voteindexer "github.com/cosmostation/cvms/internal/packages/consensus/voteindexer/indexer"
 	fpindexer "github.com/cosmostation/cvms/internal/packages/duty/finality-provider-indexer/indexer"
@@ -129,6 +130,23 @@ func selectPackage(
 			return errors.Wrap(err, common.ErrFailedToBuildPackager)
 		}
 		return btclcindexer.Start()
+	case pkg == "babylon_covenant_signature":
+		endpoints := common.Endpoints{RPCs: validRPCs, CheckRPC: true, APIs: validAPIs, CheckAPI: true}
+		p, err := common.NewPackager(m, f, l, mainnet, chainID, chainName, pkg, protocolType, cc, endpoints, monikers...)
+		if err != nil {
+			return errors.Wrap(err, common.ErrFailedToBuildPackager)
+		}
+		p.SetIndexerDB(idb)
+		if isConsumer {
+			providerEndpoints := common.Endpoints{RPCs: providerRPCs, CheckRPC: true, APIs: providerAPIs, CheckAPI: true}
+			p.SetAddtionalEndpoints(providerEndpoints)
+			p.SetConsumer()
+		}
+		csindexer, err := bcsindexer.NewCovenantSignatureIndexer(*p)
+		if err != nil {
+			return errors.Wrap(err, common.ErrFailedToBuildPackager)
+		}
+		return csindexer.Start()
 	}
 
 	return common.ErrUnSupportedPackage

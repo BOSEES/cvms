@@ -45,7 +45,7 @@ func (idx *BTCLightClientIndexer) Start() error {
 		return errors.Wrap(err, "failed to init chain_info_id")
 	}
 
-	alreadyInit, err := idx.CheckIndexpoinerAlreadyInitialized(idx.IndexName, idx.ChainInfoID)
+	alreadyInit, err := idx.CheckIndexPointerAlreadyInitialized(idx.IndexName, idx.ChainInfoID)
 	if err != nil {
 		return errors.Wrap(err, "failed to check init tables")
 	}

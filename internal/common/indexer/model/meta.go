@@ -6,6 +6,21 @@ import (
 	"github.com/uptrace/bun"
 )
 
+type CovenantCommitteeInfo struct {
+	bun.BaseModel `bun:"table:meta.covenant_committee_info"`
+	ID            int64  `bun:"id,pk,autoincrement"`
+	ChainInfoID   int64  `bun:"chain_info_id,pk,notnull"`
+	CovenantBtcPk string `bun:"covenant_btc_pk"`
+}
+
+func (cci CovenantCommitteeInfo) String() string {
+	return fmt.Sprintf("CovenantCommitteeInfo<%d %d %s>",
+		cci.ID,
+		cci.ChainInfoID,
+		cci.CovenantBtcPk,
+	)
+}
+
 type FinalityProviderInfo struct {
 	bun.BaseModel   `bun:"table:meta.finality_provider_info"`
 	ID              int64  `bun:"id,pk,autoincrement"`
