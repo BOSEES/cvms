@@ -15,7 +15,7 @@ const (
 var (
 	// TODO: move into common api
 	BlockTxsQueryPath = func(blockHeight int64) string {
-		return fmt.Sprintf("/cosmos/tx/v1beta1/txs/block/%d?pagination.limit=1", blockHeight)
+		return fmt.Sprintf("/cosmos/tx/v1beta1/txs/block/%d?pagination.limit=1000", blockHeight)
 	}
 )
 
