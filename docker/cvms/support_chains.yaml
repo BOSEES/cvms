@@ -1492,7 +1492,7 @@ xion-mainnet-1:
     - upgrade
     - uptime
     - voteindexer
-xion-testnet-1:
+xion-testnet-2:
   chain_name: xion
   protocol_type: cosmos
   mainnet: false
