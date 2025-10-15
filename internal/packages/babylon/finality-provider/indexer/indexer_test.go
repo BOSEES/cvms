@@ -21,7 +21,7 @@ const BabylonBaseURL = "https://lcd-office.cosmostation.io/babylon-testnet"
 var (
 	p = common.Packager{
 		ChainName:    "babylon",
-		ChainID:      "bbn-test-5",
+		ChainID:      "bbn-test-6",
 		ProtocolType: "cosmos",
 		Endpoints: common.Endpoints{
 			RPCs: []string{"https://rpc-office.cosmostation.io/babylon-testnet"},
