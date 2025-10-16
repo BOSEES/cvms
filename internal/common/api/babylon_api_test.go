@@ -28,8 +28,7 @@ func TestCheckGetBlockResultAndExtractFpVoting(t *testing.T) {
 func Test_Babylon_GetFP(t *testing.T) {
 	commonApp := common.NewCommonApp(p)
 	commonApp.SetAPIEndPoint("https://lcd-office.cosmostation.io/babylon-testnet")
-	chainID := "bbn-testnet-5"
-	fps, err := GetBabylonFinalityProviderInfos(commonApp.CommonClient, chainID)
+	fps, err := GetBabylonFinalityProviderInfos(commonApp.CommonClient)
 	assert.NoError(t, err)
 
 	for _, fp := range fps {

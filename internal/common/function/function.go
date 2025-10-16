@@ -229,8 +229,8 @@ func GetStakingValidators(client common.CommonClient, chainName string, newStaki
 	return nil
 }
 
-func MakeFinalityProviderInfoList(c common.CommonClient, chainID string, chainInfoID int64, newFinalityProviderMap map[string]bool) ([]indexermodel.FinalityProviderInfo, error) {
-	fps, err := api.GetBabylonFinalityProviderInfos(c, chainID)
+func MakeFinalityProviderInfoList(c common.CommonClient, chainInfoID int64, newFinalityProviderMap map[string]bool) ([]indexermodel.FinalityProviderInfo, error) {
+	fps, err := api.GetBabylonFinalityProviderInfos(c)
 	if err != nil {
 		return nil, errors.Cause(err)
 	}

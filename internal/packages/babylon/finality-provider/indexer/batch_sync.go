@@ -135,7 +135,7 @@ func (idx *FinalityProviderIndexer) batchSync(chainID string, lastIndexPointerHe
 
 	// this logic will be progressed only when there are new tendermint validators in this block
 	if isNewFinalityProvider {
-		newfpInfoList, err := function.MakeFinalityProviderInfoList(idx.CommonClient, chainID, idx.ChainInfoID, newFinalityProviderMap)
+		newfpInfoList, err := function.MakeFinalityProviderInfoList(idx.CommonClient, idx.ChainInfoID, newFinalityProviderMap)
 		if err != nil {
 			errors.Wrap(err, "failed to make validator info list")
 		}

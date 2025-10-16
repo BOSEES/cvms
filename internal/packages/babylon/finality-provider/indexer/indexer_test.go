@@ -92,8 +92,7 @@ func TestBatchSync(t *testing.T) {
 func TestGetFinalityProvidersInfo(t *testing.T) {
 	app := common.NewCommonApp(p)
 	app.SetAPIEndPoint(BabylonBaseURL)
-	chainID := "bbn-testnet-5"
-	fpInfoList, err := api.GetBabylonFinalityProviderInfos(app.CommonClient, chainID)
+	fpInfoList, err := api.GetBabylonFinalityProviderInfos(app.CommonClient)
 	assert.NoError(t, err)
 	t.Logf("new fp infos: %d", len(fpInfoList))
 	for idx, fp := range fpInfoList {

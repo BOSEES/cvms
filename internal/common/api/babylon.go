@@ -59,7 +59,7 @@ func GetFinalityVotesByHeight(c common.CommonClient, height int64) ([]string, er
 	return votes.BTCPKs, nil
 }
 
-func GetBabylonFinalityProviderInfos(c common.CommonClient, chainID string) ([]types.FinalityProviderInfo, error) {
+func GetBabylonFinalityProviderInfos(c common.CommonClient) ([]types.FinalityProviderInfo, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), common.Timeout)
 	defer cancel()
 
@@ -68,7 +68,7 @@ func GetBabylonFinalityProviderInfos(c common.CommonClient, chainID string) ([]t
 	maxCnt := 10
 	key := ""
 	for cnt := 0; cnt <= maxCnt; cnt++ {
-		resp, err := requester.Get(types.BabylonFinalityProviderInfosQueryPath(key, chainID))
+		resp, err := requester.Get(types.BabylonFinalityProviderInfosQueryPath(key))
 		if err != nil {
 			return nil, errors.Errorf("rpc call is failed from %s: %s", resp.Request.URL, err)
 		}
@@ -86,7 +86,7 @@ func GetBabylonFinalityProviderInfos(c common.CommonClient, chainID string) ([]t
 
 		if fpInfos.Pagination.NextKey != "" {
 			key = url.QueryEscape(fpInfos.Pagination.NextKey)
-			c.Debugf("there is next key, keep collecting finality providers by using this path: %s", types.BabylonFinalityProviderInfosQueryPath(key, chainID))
+			c.Debugf("there is next key, keep collecting finality providers by using this path: %s", types.BabylonFinalityProviderInfosQueryPath(key))
 		} else {
 			// got all finality provider infos
 			c.Debugf("collected all finality providers")

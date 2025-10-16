@@ -40,8 +40,8 @@ type FinalityVotesResponse struct {
 	BTCPKs []string `json:"btc_pks"`
 }
 
-var BabylonFinalityProviderInfosQueryPath = func(key, chainID string) string {
-	return fmt.Sprintf("/babylon/btcstaking/v1/finality_providers/%s?pagination.key=%s", chainID, key)
+var BabylonFinalityProviderInfosQueryPath = func(key string) string {
+	return fmt.Sprintf("/babylon/btcstaking/v1/finality_providers?pagination.key=%s", key)
 }
 
 type FinalityProviderInfosResponse struct {
