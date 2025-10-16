@@ -50,22 +50,22 @@ docker compose up --build -d
 # 2. validator mode:
 #   ex) monikers: ['Cosmostation1', 'Cosmostation2']
 #   des) This will enable validator mode for whitelisted specific validators
-monikers: ['Cosmostation']
+monikers: ["Cosmostation"]
 
 # If the user is a validator, they will want to operate on all chains in which they are already participating as a validator in the network.
 chains:
   # NOTE: display name will be used only this config to indicate followed arguments to communicate internal team members
-  - display_name: 'babylon-testnet'
+  - display_name: "babylon-testnet"
     # NOTE: chain_id is a KEY to find applicable packages in support_chains list. YOU SHOULD MATCH CORRECT CHAIN ID!
-    chain_id: bbn-test-5
+    chain_id: bbn-test-6
     # NOTE: these addresses will be used for balance usage tracking such as validator, broadcaster or something.
     tracking_addresses:
-      - 'bbn1x5wgh6vwye60wv3dtshs9dmqggwfx2ldy7agnk' # your fp orchestrator address or validator address to follow your gas balance
+      - "bbn1x5wgh6vwye60wv3dtshs9dmqggwfx2ldy7agnk" # your fp orchestrator address or validator address to follow your gas balance
     nodes:
       # NOTE: currently grpc endpoint doesn't support ssl
-      - rpc: 'http://localhost:26657'
-        api: 'http://localhost:1337'
-        grpc: 'localhost:9090' # actully not used in babylon chain
+      - rpc: "http://localhost:26657"
+        api: "http://localhost:1337"
+        grpc: "localhost:9090" # actully not used in babylon chain
 ```
 
 **Example Validator Dashboard**
@@ -110,22 +110,22 @@ docker compose up --build -d
 # 2. validator mode:
 #   ex) monikers: ['Cosmostation1', 'Cosmostation2']
 #   des) This will enable validator mode for whitelisted specific validators
-monikers: ['all']
+monikers: ["all"]
 
 # If the user is a validator, they will want to operate on all chains in which they are already participating as a validator in the network.
 chains:
   # NOTE: display name will be used only this config to indicate followed arguments to communicate internal team members
-  - display_name: 'babylon-testnet'
+  - display_name: "babylon-testnet"
     # NOTE: chain_id is a KEY to find applicable packages in support_chains list. YOU SHOULD MATCH CORRECT CHAIN ID!
-    chain_id: bbn-test-5
+    chain_id: bbn-test-6
     # NOTE: these addresses will be used for balance usage tracking such as validator, broadcaster or something.
     tracking_addresses:
-      - 'bbn1x5wgh6vwye60wv3dtshs9dmqggwfx2ldy7agnk' # your fp orchestrator address or validator address to follow your gas balance
+      - "bbn1x5wgh6vwye60wv3dtshs9dmqggwfx2ldy7agnk" # your fp orchestrator address or validator address to follow your gas balance
     nodes:
       # NOTE: currently grpc endpoint doesn't support ssl
-      - rpc: 'http://localhost:26657'
-        api: 'http://localhost:1337'
-        grpc: 'localhost:9090' # actully not used in babylon chain
+      - rpc: "http://localhost:26657"
+        api: "http://localhost:1337"
+        grpc: "localhost:9090" # actully not used in babylon chain
 ```
 
 **_NOTE : If you want to use external postgres DB for persistence mode, please check docs/setup_persistent_mode.md docs_**

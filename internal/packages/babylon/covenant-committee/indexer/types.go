@@ -18,7 +18,7 @@ const (
 	//Babylon official remote assets
 	//https://github.com/babylonlabs-io/networks
 	BabylonCovenantCommitteeMonikerFromMainnet = "https://github.com/babylonlabs-io/networks/raw/refs/heads/main/bbn-1/covenant-committee.json"
-	BabylonCovenantCommitteeMonikerFromTestnet = "https://github.com/babylonlabs-io/networks/raw/refs/heads/main/bbn-test-5/covenant-committee.json"
+	BabylonCovenantCommitteeMonikerFromTestnet = "https://github.com/babylonlabs-io/networks/raw/refs/heads/main/bbn-test-6/covenant-committee.json"
 )
 
 var (

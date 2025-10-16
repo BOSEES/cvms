@@ -545,8 +545,8 @@
     "list": [
       {
         "current": {
-          "text": "bbn-test-5",
-          "value": "bbn-test-5"
+          "text": "bbn-test-6",
+          "value": "bbn-test-6"
         },
         "datasource": {
           "type": "prometheus",
