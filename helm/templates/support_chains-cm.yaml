@@ -1,10 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  labels:
-    {{- include "cvms.labels" . | nindent 4 }}
+  labels: { { - include "cvms.labels" . | nindent 4 } }
   name: support-chains-cm
-  namespace: {{ default .Release.Namespace .Values.namespaceOverride | quote }}
+  namespace: { { default .Release.Namespace .Values.namespaceOverride | quote } }
 data:
   support_chains.yaml: |
     ---
@@ -1115,18 +1114,6 @@ data:
       mainnet: true
       support_asset:
         denom: uscrt
-        decimal: 6
-      packages:
-        - block
-        - upgrade
-        - uptime
-        - voteindexer
-    self-1:
-      chain_name: selfchain
-      protocol_type: cosmos
-      mainnet: true
-      support_asset:
-        denom: uslf
         decimal: 6
       packages:
         - block
