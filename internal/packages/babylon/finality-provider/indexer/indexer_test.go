@@ -21,7 +21,7 @@ const BabylonBaseURL = "https://lcd-office.cosmostation.io/babylon-testnet"
 var (
 	p = common.Packager{
 		ChainName:    "babylon",
-		ChainID:      "bbn-test-5",
+		ChainID:      "bbn-test-6",
 		ProtocolType: "cosmos",
 		Endpoints: common.Endpoints{
 			RPCs: []string{"https://rpc-office.cosmostation.io/babylon-testnet"},
@@ -84,7 +84,7 @@ func TestBatchSync(t *testing.T) {
 	err = idx.FetchValidatorInfoList()
 	assert.NoError(t, err)
 
-	newIndexPointer, err := idx.batchSync(94810)
+	newIndexPointer, err := idx.batchSync(idx.ChainID, 94810)
 	assert.NoError(t, err)
 	t.Logf("new index point: %d", newIndexPointer)
 }

@@ -1,10 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  labels:
-    {{- include "cvms.labels" . | nindent 4 }}
+  labels: { { - include "cvms.labels" . | nindent 4 } }
   name: support-chains-cm
-  namespace: {{ default .Release.Namespace .Values.namespaceOverride | quote }}
+  namespace: { { default .Release.Namespace .Values.namespaceOverride | quote } }
 data:
   support_chains.yaml: |
     ---
@@ -174,7 +173,7 @@ data:
         # TODO ref; https://github.com/berachain/beacon-kit/blob/main/mod/node-api/handlers/beacon/routes.go
         # - upgrade
         # - uptime
-    bbn-test-5:
+    bbn-test-6:
       chain_name: babylon
       protocol_type: cosmos
       mainnet: false
@@ -1316,7 +1315,7 @@ data:
         - upgrade
         - uptime
         - voteindexer
-    xion-testnet-1:
+    xion-testnet-2:
       chain_name: xion
       protocol_type: cosmos
       mainnet: false
