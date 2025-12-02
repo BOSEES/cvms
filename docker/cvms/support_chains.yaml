@@ -814,17 +814,6 @@ lum-network-1:
     - upgrade
     - uptime
     - voteindexer
-lumera-testnet-2:
-  chain_name: lumera
-  protocol_type: cosmos
-  mainnet: false
-  support_asset:
-    denom: ulume
-    decimal: 6
-  packages:
-    - block
-    - upgrade
-    - uptime
 ledger-testnet-1:
   chain_name: lombard
   protocol_type: cosmos
