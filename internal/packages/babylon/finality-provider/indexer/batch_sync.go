@@ -17,7 +17,7 @@ const finalitySigTimeout = 3
 
 // NOTE: in this package, the missed height means fp didn't broadcast the finality sig tx in height+1 block
 // for example, I didn't broadcast the tx at 100 block, that will make missed block for 99 height.
-func (idx *FinalityProviderIndexer) batchSync(lastIndexPointerHeight int64) (
+func (idx *FinalityProviderIndexer) batchSync(chainID string, lastIndexPointerHeight int64) (
 	/* new index pointer */ int64,
 	/* error */ error,
 ) {

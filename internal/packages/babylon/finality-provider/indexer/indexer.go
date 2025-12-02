@@ -132,7 +132,7 @@ func (idx *FinalityProviderIndexer) Loop(indexPoint int64) {
 		}
 
 		// trying to sync with new index pointer height
-		newIndexPointer, err := idx.batchSync(indexPoint)
+		newIndexPointer, err := idx.batchSync(idx.ChainID, indexPoint)
 		if err != nil {
 			common.Health.With(idx.RootLabels).Set(0)
 			common.Ops.With(idx.RootLabels).Inc()

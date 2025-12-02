@@ -183,7 +183,7 @@ bartio-beacon-80084:
     # TODO ref; https://github.com/berachain/beacon-kit/blob/main/mod/node-api/handlers/beacon/routes.go
     # - upgrade
     # - uptime
-bbn-test-5:
+bbn-test-6:
   chain_name: babylon
   protocol_type: cosmos
   mainnet: false
@@ -468,18 +468,6 @@ dymension_1100-1:
   support_asset:
     denom: adym
     decimal: 18
-  packages:
-    - block
-    - upgrade
-    - uptime
-    - voteindexer
-deluge-1:
-  chain_name: zkcloud
-  protocol_type: cosmos
-  mainnet: true
-  support_asset:
-    denom: uproof
-    decimal: 6
   packages:
     - block
     - upgrade
@@ -826,17 +814,6 @@ lum-network-1:
     - upgrade
     - uptime
     - voteindexer
-lumera-testnet-2:
-  chain_name: lumera
-  protocol_type: cosmos
-  mainnet: false
-  support_asset:
-    denom: ulume
-    decimal: 6
-  packages:
-    - block
-    - upgrade
-    - uptime
 ledger-testnet-1:
   chain_name: lombard
   protocol_type: cosmos
@@ -1492,7 +1469,7 @@ xion-mainnet-1:
     - upgrade
     - uptime
     - voteindexer
-xion-testnet-1:
+xion-testnet-2:
   chain_name: xion
   protocol_type: cosmos
   mainnet: false
