@@ -2,7 +2,6 @@ package api
 
 import (
 	"context"
-	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"net/http"
@@ -24,7 +23,6 @@ const pollingSize int = 5
 func GetAxelarHeartbeatsStatus(
 	exporter *common.Exporter,
 	CommonProxyResisterQueryPath string,
-	CommonProxyResisterParser func([]byte) (types.AxelarProxyResisterStatus, error),
 	latestHeartbeatsHeight int64,
 ) (types.CommonAxelarHeartbeats, error) {
 	currentBlockHeight, _, err := api.GetStatus(exporter.CommonClient)
@@ -128,34 +126,18 @@ func findHeartbeats(
 
 		go func(operatorAddr, moniker string) {
 			defer wg.Done()
-
 			// Find Broadcastor address
-			rpcRequester := exporter.RPCClient.R().SetContext(ctx)
-			abciQueryPath := strings.Replace(types.AxelarProxyResisterQueryPath, "{validator_operator_address}", operatorAddr, -1)
-			resp, err := rpcRequester.Get(abciQueryPath)
+			apiRequester := exporter.APIClient.R().SetContext(ctx)
+			proxyQueryPath := strings.Replace(types.AxelarProxyResisterQueryPath, "{validator_operator_address}", operatorAddr, -1)
+			resp, err := apiRequester.Get(proxyQueryPath)
 			if err != nil {
 				exporter.Errorf("API error: %s", err)
 				*ch <- helper.Result{Item: nil, Success: false}
 				return
 			}
 
-			var AxelarProxyResisterResponse types.AxelarProxyResisterResponse
-			if err := json.Unmarshal(resp.Body(), &AxelarProxyResisterResponse); err != nil {
-				exporter.Errorf("JSON unmarshal error: %s", err)
-				*ch <- helper.Result{Item: nil, Success: false}
-				return
-			}
-
-			// The ABCI query returns an encoded value, so try to decode it to base64.
-			decodedBytes, err := base64.StdEncoding.DecodeString(AxelarProxyResisterResponse.Result.Response.Value)
-			if err != nil {
-				exporter.Errorf("Failed to decode Base64: %s", err)
-				*ch <- helper.Result{Item: nil, Success: false}
-				return
-			}
-
 			var AxelarProxyResisterStatus types.AxelarProxyResisterStatus
-			if err := json.Unmarshal(decodedBytes, &AxelarProxyResisterStatus); err != nil {
+			if err := json.Unmarshal(resp.Body(), &AxelarProxyResisterStatus); err != nil {
 				exporter.Errorf("JSON unmarshal error: %s", err)
 				*ch <- helper.Result{Item: nil, Success: false}
 				return
@@ -164,7 +146,7 @@ func findHeartbeats(
 			newBroadcastorStatus := types.BroadcastorStatus{
 				Moniker:                  moniker,
 				ValidatorOperatorAddress: operatorAddr,
-				BroadcastorAddress:       AxelarProxyResisterStatus.Address,
+				BroadcastorAddress:       AxelarProxyResisterStatus.ProxyAddress,
 				Status:                   "",
 			}
 
@@ -172,7 +154,7 @@ func findHeartbeats(
 
 			for i := 0; i < pollingSize; i++ {
 				for _, tx := range blockTxsCache {
-					isHealthy, err := parser.AxelarHeartbeatsFilterInTx(tx, AxelarProxyResisterStatus.Address)
+					isHealthy, err := parser.AxelarHeartbeatsFilterInTx(tx, AxelarProxyResisterStatus.ProxyAddress)
 					if err != nil {
 						exporter.Error(err)
 						*ch <- helper.Result{Item: nil, Success: false}

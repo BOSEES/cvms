@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 
@@ -10,18 +9,8 @@ import (
 )
 
 func AxelarProxyResisterParser(resp []byte) (types.AxelarProxyResisterStatus, error) {
-	var result types.AxelarProxyResisterResponse
-	if err := json.Unmarshal(resp, &result); err != nil {
-		return types.AxelarProxyResisterStatus{}, err
-	}
-
-	decoded, err := base64.StdEncoding.DecodeString(result.Result.Response.Value)
-	if err != nil {
-		return types.AxelarProxyResisterStatus{}, err
-	}
-
 	var proxyResister types.AxelarProxyResisterStatus
-	err = json.Unmarshal(decoded, &proxyResister)
+	err := json.Unmarshal(resp, &proxyResister)
 	if err != nil {
 		return types.AxelarProxyResisterStatus{}, err
 	}

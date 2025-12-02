@@ -2,7 +2,6 @@ package parser
 
 import (
 	"context"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -79,29 +78,15 @@ func TestAxelarHeartbeatsFilterInTx(t *testing.T) {
 				return
 			}
 
-			var AxelarProxyResisterResponse types.AxelarProxyResisterResponse
-			if err := json.Unmarshal(resp.Body(), &AxelarProxyResisterResponse); err != nil {
-				fmt.Errorf("json unmashal error: %s", err)
-				ch <- helper.Result{Item: nil, Success: false}
-				return
-			}
-
-			// Base64 decode
-			decodedBytes, err := base64.StdEncoding.DecodeString(AxelarProxyResisterResponse.Result.Response.Value)
-			if err != nil {
-				fmt.Printf("failed to decode Base64: %s", err)
-				return
-			}
-
 			var AxelarProxyResisterStatus types.AxelarProxyResisterStatus
-			err = json.Unmarshal(decodedBytes, &AxelarProxyResisterStatus)
+			err = json.Unmarshal(resp.Body(), &AxelarProxyResisterStatus)
 			if err != nil {
 				fmt.Printf("json unmashal error: %s", err)
 				return
 			}
 
 			for _, tx := range blockTxs {
-				isHealthy, err := AxelarHeartbeatsFilterInTx(tx, AxelarProxyResisterStatus.Address)
+				isHealthy, err := AxelarHeartbeatsFilterInTx(tx, AxelarProxyResisterStatus.ProxyAddress)
 				if err != nil {
 					fmt.Printf("failed filtering tx: %s", err)
 					ch <- helper.Result{
@@ -114,7 +99,7 @@ func TestAxelarHeartbeatsFilterInTx(t *testing.T) {
 					var newBroadcastorStatus = types.BroadcastorStatus{
 						Moniker:                  moniker,
 						ValidatorOperatorAddress: operatorAddr,
-						BroadcastorAddress:       AxelarProxyResisterStatus.Address,
+						BroadcastorAddress:       AxelarProxyResisterStatus.ProxyAddress,
 						Status:                   AxelarProxyResisterStatus.Status,
 					}
 

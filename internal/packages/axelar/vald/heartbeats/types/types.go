@@ -10,7 +10,7 @@ const (
 
 	// axelar
 	AxelarChainMaintainersQueryPath = "/axelar/nexus/v1beta1/chain_maintainers/{chain}"
-	AxelarProxyResisterQueryPath    = `/abci_query?path="/custom/snapshot/proxy/{validator_operator_address}"`
+	AxelarProxyResisterQueryPath    = "/axelar/snapshot/v1beta1/proxy?operator_address={validator_operator_address}"
 )
 
 type CommonAxelarHeartbeats struct {
@@ -39,23 +39,7 @@ type CommonValidatorsQueryResponse struct {
 	} `json:"-"`
 }
 
-type AxelarProxyResisterResponse struct {
-	Result struct {
-		Response struct {
-			Code      int    `json:"code"`
-			Log       string `json:"log"`
-			Info      string `json:"info"`
-			Index     string `json:"index"`
-			Key       any    `json:"key"`
-			Value     string `json:"value"`
-			ProofOps  any    `json:"proofOps"`
-			Height    string `json:"height"`
-			Codespace string `json:"codespace"`
-		} `json:"response"`
-	} `json:"result"`
-}
-
 type AxelarProxyResisterStatus struct {
-	Address string `json:"address"`
-	Status  string `json:"status"`
+	ProxyAddress string `json:"proxy_address"`
+	Status       string `json:"status"`
 }
