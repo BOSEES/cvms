@@ -139,7 +139,6 @@ axelar-dojo-1:
     - axelar-evm
     - voteindexer
     - axelar-amplifier-verifier
-    - axelar-vald-heartbeats
     - block-data-analytics
 axelar-testnet-lisbon-3:
   chain_name: axelar
@@ -155,7 +154,6 @@ axelar-testnet-lisbon-3:
     - axelar-evm
     - voteindexer
     - axelar-amplifier-verifier
-    - axelar-vald-heartbeats
     - block-data-analytics
 band-laozi-testnet6:
   chain_name: band
