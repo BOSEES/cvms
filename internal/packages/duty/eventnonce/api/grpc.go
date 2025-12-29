@@ -135,6 +135,17 @@ func GetEventNonceStatusByGRPC(
 					return
 				}
 
+				// case.2 : not registered validators for injective peggy
+				if strings.Contains(err.Error(), "codespace peggy code 3: invalid: No validator") {
+					c.Infof("got empty orchestrator address for %s, so saved empty string", validatorOperatorAddress)
+					ch <- helper.Result{Success: true, Item: types.ValidatorStatus{
+						ValidatorOperatorAddress: validatorOperatorAddress,
+						OrchestratorAddress:      "",
+						Moniker:                  validatorMoniker,
+					}}
+					return
+				}
+
 				c.Errorf("grpc error: %s for %s", err, commonOrchestratorPayload)
 				ch <- helper.Result{Success: false, Item: nil}
 				return
