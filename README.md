@@ -48,18 +48,17 @@ In network mode, CVMS provides an overview that allows users to check the status
 
 The packages currently supported by CVMS are as follows:
 
-| package                               | support chains                                                |
-| ------------------------------------- | ------------------------------------------------------------- |
-| block                                 | all                                                           |
-| uptime                                | all                                                           |
-| balance                               | all for native token                                          |
-| upgrade                               | all                                                           |
-| eventnonce                            | injective(peggo) / gravity-bridge(gbt) / sommelier(steward)   |
-| oracle                                | sei(price-feeder) / umee(price-feeder) / nibiru(price-feeder) |
-| yoda                                  | band                                                          |
-| axelar-evm                            | axelar                                                        |
-| voteindexer(validator-consensus-vote) | all                                                           |
-| veindexer(validator-extension-vote)   | all if existed                                                |
+| package                               | support chains                                              |
+| ------------------------------------- | ----------------------------------------------------------- |
+| block                                 | all                                                         |
+| uptime                                | all                                                         |
+| balance                               | all for native token                                        |
+| upgrade                               | all                                                         |
+| eventnonce                            | injective(peggo) / gravity-bridge(gbt) / sommelier(steward) |
+| yoda                                  | band                                                        |
+| axelar-evm                            | axelar                                                      |
+| voteindexer(validator-consensus-vote) | all                                                         |
+| veindexer(validator-extension-vote)   | all if existed                                              |
 
 ## Run CVMS
 
@@ -111,7 +110,6 @@ We provide basic dashboards for easy use by developers. 👉 [Check here!](/./do
 #### Block Package Metrics
 
 - **cvms_block_height** (by node): This value represents the latest block's height from the connected endpoint.
-
   - **Default labels**: chain, chain_id, mainnet, package
   - **Package-specific labels**: endpoint
 
@@ -127,11 +125,9 @@ We provide basic dashboards for easy use by developers. 👉 [Check here!](/./do
 #### Uptime Package Metrics
 
 - **cvms_uptime_min_signed_per_window** (by network): This value represents the minimum signed blocks per window to prevent slashing as a validator.
-
   - **Default labels**: chain, chain_id, mainnet, package
 
 - **cvms_uptime_signed_blocks_window** (by network): This value represents the number of blocks per window for evaluation.
-
   - **Default labels**: chain, chain_id, mainnet, package
 
 - **cvms_uptime_missed_blocks_counter** (by validator): This value represents the count of missed blocks in the current slashing info.
@@ -167,7 +163,6 @@ We provide basic dashboards for easy use by developers. 👉 [Check here!](/./do
 #### Eventnonce Package Metrics
 
 - **cvms_eventnonce_highest_nonce** (by network): This value represents the highest event nonce value in the network.
-
   - **Default labels**: chain, chain_id, mainnet, package
 
 - **cvms_eventnonce_nonce** (by validator): This value represents the current event nonce value for a validator.
@@ -182,23 +177,18 @@ We provide basic dashboards for easy use by developers. 👉 [Check here!](/./do
 #### Oracle Package Metrics
 
 - **cvms_oracle_min_valid_per_window** (by network): This value represents the minimum validated threshold for a window.
-
   - **Default labels**: chain, chain_id, mainnet, package
 
 - **cvms_oracle_slash_window** (by network): This value represents the slash window for oracle status evaluation.
-
   - **Default labels**: chain, chain_id, mainnet, package
 
 - **cvms_oracle_vote_period** (by network): This value represents the number of blocks in the vote period.
-
   - **Default labels**: chain, chain_id, mainnet, package
 
 - **cvms_oracle_vote_window** (by network): This value represents the vote window for validators (calculated as slash window divided by vote period).
-
   - **Default labels**: chain, chain_id, mainnet, package
 
 - **cvms_oracle_block_height** (by network): This value represents the block height of the connected node for current oracle uptime evaluation.
-
   - **Default labels**: chain, chain_id, mainnet, package
 
 - **cvms_oracle_miss_counter** (by validator): This value represents the count of missed blocks for oracle validation.
@@ -220,36 +210,34 @@ We provide basic dashboards for easy use by developers. 👉 [Check here!](/./do
   - **Default labels**: chain, chain_id, mainnet, package
   - **Package-specific labels**: moniker
 - **cvms_yoda_max_miss_counter** (by validator): This value represents the maximum response
-delay in currently active requests assigned to the oracle
+  delay in currently active requests assigned to the oracle
   - **Default labels**: chain, chain_id, mainnet, package
   - **Package-specific labels**: moniker
 - **cvms_yoda_miss_summary** (by network): Summarizes all response delays for all
-current requests across all validators into percentiles
+  current requests across all validators into percentiles
   - **Default labels**: chain, chain_id, mainnet, package
 - **cvms_yoda_request_count** (by network): Total Number of all requests on the network so far
   - **Default labels**: chain, chain_id, mainnet, package
 - **cvms_yoda_slash_window** (by network): Maximum number of blocks a yoda oracle has time to
-respond if a request was assigned to it
+  respond if a request was assigned to it
   - **Default labels**: chain, chain_id, mainnet, package
-- **cvms_yoda_validator_miss_summary** (per validator):  Summarizes all response delays for all
-current requests into percentiles seperated by validator
+- **cvms_yoda_validator_miss_summary** (per validator): Summarizes all response delays for all
+  current requests into percentiles seperated by validator
   - **Default labels**: chain, chain_id, mainnet, package
   - **Package-specific labels**: moniker
 
-
-| **Metric**       | **Example**                                                                                                                                                                                                                                  |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| cvms_yoda_status | `cvms_yoda_status{chain="band",chain_id="band-laozi-testnet6",mainnet="false",moniker="Cosmostation",package="yoda",table_chain_id="band_laozi_testnet6",validator_operator_address="bandvaloper1kfj48adjsnrgu83lau6wc646q2uf65rf84tzus"} 1` |
-| cvms_yoda_max_miss_counter | `cvms_yoda_max_miss_counter{chain="band",chain_id="laozi-mainnet",mainnet="true",moniker="figment",package="yoda",table_chain_id="laozi_mainnet",validator_operator_address="bandvaloper1zm5p8gg3ugjcdwz9yrxaf6fdptxa4gw04rplr9"} 0` |
-| cvms_yoda_miss_summary | `cvms_yoda_miss_summary{chain="band",chain_id="laozi-mainnet",mainnet="true",package="yoda",table_chain_id="laozi_mainnet",quantile="0.99"} 2` `cvms_yoda_miss_summary_sum{chain="band",chain_id="laozi-mainnet",mainnet="true",package="yoda",table_chain_id="laozi_mainnet"} 94` `cvms_yoda_miss_summary_count{chain="band",chain_id="laozi-mainnet",mainnet="true",package="yoda",table_chain_id="laozi_mainnet"} 261` |
-| cvms_yoda_request_count | `cvms_yoda_request_count{chain="band",chain_id="laozi-mainnet",mainnet="true",package="yoda",table_chain_id="laozi_mainnet"} 2.4417307e+07` |
-| cvms_yoda_slash_window | `cvms_yoda_slash_window{chain="band",chain_id="laozi-mainnet",mainnet="true",package="yoda",table_chain_id="laozi_mainnet"} 100` |
+| **Metric**                       | **Example**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| cvms_yoda_status                 | `cvms_yoda_status{chain="band",chain_id="band-laozi-testnet6",mainnet="false",moniker="Cosmostation",package="yoda",table_chain_id="band_laozi_testnet6",validator_operator_address="bandvaloper1kfj48adjsnrgu83lau6wc646q2uf65rf84tzus"} 1`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| cvms_yoda_max_miss_counter       | `cvms_yoda_max_miss_counter{chain="band",chain_id="laozi-mainnet",mainnet="true",moniker="figment",package="yoda",table_chain_id="laozi_mainnet",validator_operator_address="bandvaloper1zm5p8gg3ugjcdwz9yrxaf6fdptxa4gw04rplr9"} 0`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| cvms_yoda_miss_summary           |  `cvms_yoda_miss_summary{chain="band",chain_id="laozi-mainnet",mainnet="true",package="yoda",table_chain_id="laozi_mainnet",quantile="0.99"} 2` `cvms_yoda_miss_summary_sum{chain="band",chain_id="laozi-mainnet",mainnet="true",package="yoda",table_chain_id="laozi_mainnet"} 94` `cvms_yoda_miss_summary_count{chain="band",chain_id="laozi-mainnet",mainnet="true",package="yoda",table_chain_id="laozi_mainnet"} 261`                                                                                                                                                                                                                                                                                                                                  |
+| cvms_yoda_request_count          | `cvms_yoda_request_count{chain="band",chain_id="laozi-mainnet",mainnet="true",package="yoda",table_chain_id="laozi_mainnet"} 2.4417307e+07`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| cvms_yoda_slash_window           | `cvms_yoda_slash_window{chain="band",chain_id="laozi-mainnet",mainnet="true",package="yoda",table_chain_id="laozi_mainnet"} 100`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | cvms_yoda_validator_miss_summary | `cvms_yoda_validator_miss_summary{chain="band",chain_id="laozi-mainnet",mainnet="true",moniker="figment",package="yoda",table_chain_id="laozi_mainnet",validator_operator_address="bandvaloper1zm5p8gg3ugjcdwz9yrxaf6fdptxa4gw04rplr9",quantile="0.99"} 1` `cvms_yoda_validator_miss_summary_sum{chain="band",chain_id="laozi-mainnet",mainnet="true",moniker="figment",package="yoda",table_chain_id="laozi_mainnet",validator_operator_address="bandvaloper1zm5p8gg3ugjcdwz9yrxaf6fdptxa4gw04rplr9"} 4` `cvms_yoda_validator_miss_summary_count{chain="band",chain_id="laozi-mainnet",mainnet="true",moniker="figment",package="yoda",table_chain_id="laozi_mainnet",validator_operator_address="bandvaloper1zm5p8gg3ugjcdwz9yrxaf6fdptxa4gw04rplr9"} 15` |
 
 #### Axelar-EVM Package Metrics
 
 - **cvms_axelar_evm_activated_chain** (by network): This value represents the on-off status of activated EVM chains for Axelar bridging.
-
   - **Default labels**: chain, chain_id, mainnet, package
   - **Package-specific labels**: evm_chain
 
