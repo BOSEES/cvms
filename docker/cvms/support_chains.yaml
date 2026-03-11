@@ -907,7 +907,7 @@ tabi_9788-2:
     - upgrade
     - uptime
     - voteindexer
-test6:
+test10:
   chain_name: gnoland
   protocol_type: gnoland
   mainnet: false
@@ -1021,22 +1021,3 @@ zetachain_7000-1:
     - upgrade
     - uptime
     - voteindexer
-zig-test-2:
-  chain_name: zigchain
-  protocol_type: cosmos
-  mainnet: false
-  support_asset:
-    denom: uzig
-    decimal: 6
-  packages:
-    - block
-    - upgrade
-    - uptime
-    - voteindexer
-0gchain-16601:
-  chain_name: zero-gravity
-  protocol_type: cosmos
-  mainnet: false
-  support_asset:
-  packages:
-    - block
