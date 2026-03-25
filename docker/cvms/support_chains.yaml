@@ -198,7 +198,6 @@ celestia:
   packages:
     - block
     - upgrade
-    - uptime
     - voteindexer
 # NOTE: celestia bridge node hava same chain id in app node.
 celestia-bridge:
