@@ -562,18 +562,6 @@ mantra-dukong-1:
     - uptime
     - voteindexer
     - veindexer
-milkyway:
-  chain_name: milkyway
-  protocol_type: cosmos
-  mainnet: true
-  support_asset:
-    denom: umilk
-    decimal: 6
-  packages:
-    - block
-    - upgrade
-    - uptime
-    - voteindexer
 mocha-4:
   chain_name: celestia
   protocol_type: cosmos
@@ -614,30 +602,6 @@ neutron-1:
     - uptime
     - voteindexer
     - veindexer
-nillion-1:
-  chain_name: nillion
-  protocol_type: cosmos
-  mainnet: true
-  support_asset:
-    denom: unil
-    decimal: 6
-  packages:
-    - block
-    - upgrade
-    - uptime
-    - voteindexer
-nillion-chain-testnet-1:
-  chain_name: nillion
-  protocol_type: cosmos
-  mainnet: false
-  support_asset:
-    denom: unil
-    decimal: 6
-  packages:
-    - block
-    - upgrade
-    - uptime
-    - voteindexer
 noble-1:
   chain_name: noble
   protocol_type: cosmos
