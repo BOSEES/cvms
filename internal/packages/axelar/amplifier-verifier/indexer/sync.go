@@ -202,7 +202,8 @@ func (idx *AxelarAmplifierVerifierIndexer) batchSync(lastIndexPoint int64) (
 		for _, pv := range summary[h].pollVotes {
 			contractInfo, exist := chainNameMap[pv.ContractAddress]
 			if !exist {
-				return lastIndexPoint, errors.Errorf("unexpected poll voted was occured: %v", pv.ContractAddress)
+				idx.Warnf("unknown contract address in poll vote, skipping: %v", pv.ContractAddress)
+				continue // return 대신 continue로 skip
 			}
 
 			verifierID, exist := idx.Vim[pv.VerifierAddress]
