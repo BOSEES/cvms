@@ -561,7 +561,6 @@ mantra-dukong-1:
     - upgrade
     - uptime
     - voteindexer
-    - veindexer
 mocha-4:
   chain_name: celestia
   protocol_type: cosmos
