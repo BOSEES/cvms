@@ -89,7 +89,6 @@ func getValidatorUptimeStatus(c common.CommonApp, chainName string, validators [
 	ch := make(chan helper.Result)
 	var wg sync.WaitGroup
 	validatorResult := make([]types.ValidatorUptimeStatus, 0)
-	wg.Add(len(orderedStakingValidators))
 
 	for _, item := range orderedStakingValidators {
 		// set query path
@@ -97,9 +96,14 @@ func getValidatorUptimeStatus(c common.CommonApp, chainName string, validators [
 		proposerAddress, _ := sdkhelper.ProposerAddressFromPublicKey(item.ConsensusPubkey.Key)
 		validatorOperatorAddress := item.OperatorAddress
 		consensusAddress := pubkeysMap[item.ConsensusPubkey.Key]
+		if consensusAddress == "" {
+			c.Warnf("skip validator %s: consensus address not found in active set", moniker)
+			continue
+		}
 		queryPath := queryPathFunction(consensusAddress)
 		vp := vpMap[item.ConsensusPubkey.Key]
 
+		wg.Add(1)
 		go func(ch chan helper.Result) {
 			defer helper.HandleOutOfNilResponse(c.Entry)
 			defer wg.Done()
