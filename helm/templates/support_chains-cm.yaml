@@ -246,14 +246,6 @@ data:
         - upgrade
         - uptime
         - voteindexer
-    # NOTE: celestia bridge node hava same chain id in app node.
-    celestia-bridge:
-      chain_name: celestia
-      protocol_type: celestia
-      mainnet: true
-      support_asset:
-      packages:
-        - block
     chihuahua-1:
       chain_name: chihuahua
       protocol_type: cosmos
@@ -813,14 +805,6 @@ data:
         - upgrade
         - uptime
         - voteindexer
-    # NOTE: celestia bridge node hava same chain id in app node.
-    mocha-4-bridge:
-      chain_name: celestia
-      protocol_type: celestia
-      mainnet: false
-      support_asset:
-      packages:
-        - block
     namada.5f5de2dd1b88cba30586420:
       chain_name: namada
       protocol_type: cosmos
