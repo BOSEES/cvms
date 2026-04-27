@@ -476,18 +476,6 @@ data:
         - upgrade
         - uptime
         - voteindexer
-    finschia-2:
-      chain_name: finschia
-      protocol_type: cosmos
-      mainnet: true
-      support_asset:
-        denom: cony
-        decimal: 6
-      packages:
-        - block
-        - upgrade
-        - uptime
-        - voteindexer
     govgen-1:
       chain_name: govgen
       protocol_type: cosmos

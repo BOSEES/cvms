@@ -357,18 +357,6 @@ fetchhub-4:
     - upgrade
     - uptime
     - voteindexer
-finschia-2:
-  chain_name: finschia
-  protocol_type: cosmos
-  mainnet: true
-  support_asset:
-    denom: cony
-    decimal: 6
-  packages:
-    - block
-    - upgrade
-    - uptime
-    - voteindexer
 grand-1:
   chain_name: noble
   protocol_type: cosmos
