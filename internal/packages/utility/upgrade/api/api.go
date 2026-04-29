@@ -9,7 +9,7 @@ import (
 	"github.com/cosmostation/cvms/internal/packages/utility/upgrade/types"
 )
 
-const blockHeightInternal = 1000
+const blockHeightInterval = 1000
 
 func GetUpgradeStatus(
 	c *common.Exporter,
@@ -50,7 +50,7 @@ func GetUpgradeStatus(
 			return types.CommonUpgrade{}, common.ErrFailedHttpRequest
 		}
 
-		previousHeight, previousBlockTimestamp, _, _, _, _, err := api.GetBlock(c.CommonClient, (latestBlockHeight - blockHeightInternal))
+		previousHeight, previousBlockTimestamp, _, _, _, _, err := api.GetBlock(c.CommonClient, (latestBlockHeight - blockHeightInterval))
 		if err != nil {
 			c.Errorf("api error: %s", err)
 			return types.CommonUpgrade{}, common.ErrFailedHttpRequest
