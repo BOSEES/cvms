@@ -528,7 +528,6 @@ mantra-1:
     - upgrade
     - uptime
     - voteindexer
-    - veindexer
 mantra-dukong-1:
   chain_name: mantra
   protocol_type: cosmos
